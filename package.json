@@ -1,0 +1,43 @@
+{
+  "name": "generation-jewelry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "site": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "SET NODE_ENV=DEVELOPMENT &&nodemon backend/server",
+    "prod": "SET NODE_ENV=PRODACTION &&nodemon backend/server",
+    "data": "node backend/utils/seeder.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.1",
+    "cloudinary": "^1.28.1",
+    "cookie-parser": "^1.4.6",
+    "countries-list": "^2.6.1",
+    "dotenv": "^14.3.0",
+    "express": "^4.17.2",
+    "express-fileupload": "^1.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.8",
+    "nodemailer": "^6.7.3",
+    "rc-slider": "^9.7.5",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.0",
+    "react-calendar": "^3.7.0",
+    "react-credit-cards": "^0.8.3",
+    "react-js-pagination": "^3.0.3",
+    "react-loader-spinner": "^5.1.0",
+    "uuid": "^8.3.2",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "eslint-cache": "^0.1.3",
+    "nodemon": "^2.0.15"
+  }
+}
