@@ -1,6 +1,7 @@
 
 import * as actionTypes from '../constants/orderConstants';
 
+//payload : payload contains the data we need to pass to the reducers.
 
 export const newOrderReducer = (state = {}, action) => {
     switch (action.type) {

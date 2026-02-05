@@ -9,7 +9,6 @@ const sendEmail = require('../utils/sandemail');
 const cloudinary = require('cloudinary');
 
 
-
 //Register user
 exports.register =async(req,res)=>{
 
@@ -27,13 +26,9 @@ exports.register =async(req,res)=>{
                 url:"https://res.cloudinary.com/bookit/image/upload/v1606233125/products/eahhtj1bkn1k9gjgd3hn.jpg"
             }
         })
-        console.log("secses")
 
         sendToken(user,200,res)
-        
-        // const token=user.getJwtToken();
-    
-        // res.status(201).json({success:true,token})
+        //מקבל את זה מה jwtoken 
     }
     catch(error){
         if(userExists){
@@ -88,7 +83,6 @@ exports.loginUser=async(req,res)=>{
 
 
 
-
 //Forgot Password  =>   /api/v1/password/Forgot
 exports.forgotPassword = async(req,res,next)=>{
 
@@ -137,8 +131,6 @@ exports.forgotPassword = async(req,res,next)=>{
 
 
 
-
-
 //Reset Password  =>   /api/v1/password/reset/:token
 exports.resetPassword = async(req,res,next)=>{
 
@@ -172,14 +164,7 @@ exports.resetPassword = async(req,res,next)=>{
     await user.save();
 
     sendToken(user, 200, res)
-
-
-
-
-
 }
-
-
 
 
 
@@ -243,6 +228,7 @@ exports.updateProfile = async (req, res, next) => {
     })
 
     res.status(200).json({
+        user,
         success: true
     })
 }
@@ -273,7 +259,7 @@ exports.logout=async(req,res)=>{
 
 
 
-// Admin Routes
+// Admin Controller
 
 // Get all users   =>   /api/v1/admin/users
 exports.allUsers = async (req, res, next) => {
@@ -352,13 +338,7 @@ exports.updateUser = async (req, res, next) => {
             message: `THis email is already in use`
         }) 
     }
-    // const existinguser=User.find(req.body.email)
-    // if(existinguser){
-    //         return res.status(401).json({//401 unauthenticated user
-    //         success:false,
-    //         message: `THis email is already in use`
-    //     }) 
-    // }
+
 }
 
 

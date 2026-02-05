@@ -18,10 +18,6 @@ import Product from './product/Products';
 //image
 import APwatch from '../components/layout/APwatch'
 
-
-
-
-
 const Home = ({ match }) => {
   
   const [currentPage,setcurrentPage]= useState(1)

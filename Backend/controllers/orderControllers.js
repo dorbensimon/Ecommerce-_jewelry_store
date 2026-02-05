@@ -15,7 +15,6 @@ exports.neworder = async (req,res) =>{
             paymentInfo,
         }=req.body;
 
-        console.log(typeof req.user._id);
 
     
         const order = await Order.create({
@@ -49,11 +48,9 @@ exports.neworder = async (req,res) =>{
 
 
 //Get single order   =>   /api/v1/order/:id
-
 exports.getSingleOrder = async(req,res)=>{
 
-    const order = await Order.findById(req.params.id).populate('user', 'name email')
-
+     const order = await Order.findById(req.params.id).populate('user', 'name email')
 
     if(!order){
         return res.status(404).json({
@@ -71,6 +68,7 @@ exports.getSingleOrder = async(req,res)=>{
 
 
 //Get logged in user orders   =>  /api/v1//orders/me
+//my order page
 exports.myOrders = async(req,res)=>{
 
     const orders = await Order.find({user:req.user.id})
@@ -136,7 +134,7 @@ async function updateStock(id, quantity) {
 
     product.stock = product.stock - quantity;
 
-    await product.save({ validateBeforeSave: false })
+    await product.save({ validateBeforeSave: false })//לאמת לפני שמירה
 }
 
 

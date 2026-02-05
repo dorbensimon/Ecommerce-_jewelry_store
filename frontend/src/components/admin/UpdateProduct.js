@@ -22,12 +22,17 @@ const UpdateProduct = ({match,history}) => {
     const categories = ['Rings', 'Necklaces', 'Watches', 'Bracelets'];
 
     const dispatch = useDispatch();
-    const {error,product} = useSelector(state=>state.ProductDetails)
-    const { loading, error:updateError, isUpdated } = useSelector((state) => state.product);
+
+
+
+    const { error, product } = useSelector(state => state.ProductDetails)
+    const { loading, error: updateError, isUpdated } = useSelector(state => state.product);
 
     const productId = match.params.id;
-    
+
     useEffect(() => {
+
+      console.log(isUpdated)
 
         if (product && product._id !== productId) {
             dispatch(getProductDetails(productId)); 
@@ -46,8 +51,16 @@ const UpdateProduct = ({match,history}) => {
             dispatch(clearErrors());
         }
         if (isUpdated) {
+          console.log(isUpdated)
             history.push('/admin/products');
-            dispatch({ type: UPDATE_PRODUCT_RESET })
+
+            dispatch({
+              type: UPDATE_PRODUCT_RESET
+          })
+        }
+
+        if(! isUpdated) {
+          console.log(isUpdated)
         }
 
       }, [dispatch, error, isUpdated, history,updateError,product,productId]);
@@ -205,16 +218,6 @@ const UpdateProduct = ({match,history}) => {
                 ))}
               </div>
 
-              {loading ? (
-                <div id="watchicon">
-                  <Watch
-                    heigth="100"
-                    width="100"
-                    color="#0078d0"
-                    ariaLabel="loading"
-                  />
-                </div>
-              ):(
                   <button
                   id="login_button"
                   type="submit"
@@ -223,11 +226,6 @@ const UpdateProduct = ({match,history}) => {
                 >
                   UPDATE
                 </button>
-              )
-              
-              
-              
-              }
 
             </form>
           </div>

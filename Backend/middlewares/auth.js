@@ -24,6 +24,7 @@ exports.isAuthenticated = async(req,res,next)=>{
 exports.authorizeRoles=(...roles)=>{
     return (req,res,next)=>{
         if(!roles.includes(req.user.role)){
+            //אני מקבל מהראוטים את התפקיד ואם התפקיד לא כולל את התפקיד שרשום ליוזר אז...
            return res.status(401).json({
                 success:false,
                 message:`Role ${req.user.role} is not allowed to access this resource`

@@ -14,7 +14,9 @@ const productSchema = new mongoose.Schema({
   price:{
     type: Number,
     required: [true, 'Please enter product price'],
-    default: 0.0
+    min: 0,
+    default: 0.0,
+    
   },
   description: {
     type: String,
@@ -52,7 +54,8 @@ const productSchema = new mongoose.Schema({
   stock:{
       type: String,
       required:[true,'Please enter product stock'],
-      default:0
+      default:0,
+      min: 0,
   },
   numOfReviews: {
     type: Number,

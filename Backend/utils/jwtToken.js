@@ -13,6 +13,8 @@ const sendToken=(user,statusCode,res)=>{
             httpOnly:true
     }
 
+
+    //מקבל את השם של היוזר ושולח לדפדפן את הסטטוס 200 את הטוקן ואת הזמן שהוא תקף
     res.status(statusCode).cookie('token',token, options).json({
         success:true,
         token,

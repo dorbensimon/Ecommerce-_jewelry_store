@@ -48,8 +48,8 @@ const userSchema= new mongoose.Schema({
 })
 
 //Encrypring password before saving user
-userSchema.pre('save',async function(next){
-    if(!this.isModified('password')){
+userSchema.pre('save',async function(next){//pre will mining do somnthing before you save the schema
+    if(!this.isModified('password')){//ill be true whenever 'password' gets modified שונה
         next();
     }
 
@@ -64,30 +64,17 @@ userSchema.methods.comparePassword=async function(enteredPassword){
 
 // Return JWT token
 userSchema.methods.getJwtToken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {//Stores the user ID Stores the id in the payload in the token
         expiresIn: process.env.JWT_EXPIRES_TIME
     });
 }
 
-// //Generate password reset token
-// userSchema.methods.getResetPasswordToken = function () {
-//     //Generate token
-//     const resetToken = crypto.randomBytes(20).toString('hex');
-
-//     //Has and set to reset passwordToken
-//     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
-
-//     //Set token expire time
-//     this.resetPasswordExpire = Date.now() + 30 * 60 * 1000
-
-//     return resetToken;
-// }
 
 
 // Generate password reset token
 userSchema.methods.getResetPasswordToken = function () {
     // Generate token
-    const resetToken = crypto.randomBytes(20).toString('hex');
+    const resetToken = crypto.randomBytes(20).toString('hex'); //הטוקן הוא בשביל לאמת את הזהות אחרי שהתחברת למשתמש והוא נמצא בעוגיות 
 
     // Hash and set to resetPasswordToken
     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')

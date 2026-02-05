@@ -229,7 +229,9 @@ export const updateUser = (id,userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post(`/api/v1/admin.user/${id}`,userData, config)
+        const { data } = await axios.put(`/api/v1/admin/user/${id}`,userData, config)
+
+        console.log(data.success)
 
         dispatch({
             type: actionTypes.UPDATE_USER_SUCCESS,

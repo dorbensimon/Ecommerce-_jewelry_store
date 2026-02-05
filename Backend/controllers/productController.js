@@ -11,25 +11,19 @@ exports.newProduct=async(req,res)=>{
     } else {
         images = req.body.images
     }
-
      let imagesLinks = [];
-
     for (let i = 0; i < images.length; i++) {
         const result = await cloudinary.v2.uploader.upload(images[i], {
             folder: 'products'
         });
-
         imagesLinks.push({
             public_id: result.public_id,
             url: result.secure_url
         })
     }
-
     req.body.images = imagesLinks
     req.body.user = req.user.id;
-
     const product = await Product.create(req.body);
-
     res.status(201).json({
         success: true,
         product
@@ -37,12 +31,12 @@ exports.newProduct=async(req,res)=>{
     }
     catch(error){
         res.status(400).json({
-            success: false,
-            message:error
+            success: false,error:error
         })
     }
-
 }
+
+
 //Get all products => /api/v1/products
 exports.getProducts=async(req,res,next)=>{
     const resPerPage = 8;
@@ -75,6 +69,9 @@ exports.getProducts=async(req,res,next)=>{
             })
         }
 }
+
+
+
 //Get single product details => /api/v1/product/:id
 exports.getSingleproduct=async(req,res,next)=>{
     const product =await Product.findById(req.params.id)
@@ -89,6 +86,10 @@ exports.getSingleproduct=async(req,res,next)=>{
         product
     })
 }
+
+
+
+
 //Update product  =>  /api/v1/admin/product/:id
 exports.updateProduct=async(req,res,next)=>{
     const product =await Product.findById(req.params.id);
@@ -105,15 +106,12 @@ exports.updateProduct=async(req,res,next)=>{
     } else {
         images = req.body.images
     }
-
     if(images !==undefined){
         // Deleting images associated with the product
         for (let i = 0; i < product.images.length; i++) {
             const result = await cloudinary.v2.uploader.destroy(product.images[i].public_id)
         }
-
         let imagesLinks = [];
-
         for (let i = 0; i < images.length; i++) {
             const result = await cloudinary.v2.uploader.upload(images[i], {
                 folder: 'products'
@@ -124,10 +122,8 @@ exports.updateProduct=async(req,res,next)=>{
                 url: result.secure_url
             })
         }
-
         req.body.images = imagesLinks
     }
-
 
 
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -137,18 +133,22 @@ exports.updateProduct=async(req,res,next)=>{
     });
 
     res.status(200).json({
-        success:true,
-        product
+        success: true,
         })
 
     }
     catch(error){
         res.status(200).json({
             success: false,
-            message:error
+            message:error,
         })
     }
 }
+
+
+
+
+
 //Delete a product   =>  /api/v1/admin/product/:id
 exports.deleteProduct=async(req,res)=>{
     const product =await Product.findById(req.params.id);
@@ -170,6 +170,9 @@ exports.deleteProduct=async(req,res)=>{
 
     }
 }
+
+
+
 // Create new review   =>   /api/v1/review
 exports.createProductReview = async (req, res, next) => {
 
@@ -207,6 +210,11 @@ exports.createProductReview = async (req, res, next) => {
     })
 
 }
+
+
+
+
+
 // Get Product Reviews   =>   /api/v1/reviews
 exports.getProductReviews = async (req, res, next) => {
     const product = await Product.findById(req.query.id);
@@ -216,6 +224,10 @@ exports.getProductReviews = async (req, res, next) => {
         reviews: product.reviews
     })
 }
+
+
+
+
 // Delete Product Review   =>   /api/v1/reviews
 exports.deleteReview = async (req, res, next) => {
 
@@ -241,19 +253,6 @@ exports.deleteReview = async (req, res, next) => {
         success: true
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

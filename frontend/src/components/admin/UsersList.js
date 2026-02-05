@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Watch } from  'react-loader-spinner'
 import { MDBDataTable } from 'mdbreact'
-
 import MetaData from '../layout/MetaData'
 import Sidebar from './Sidebar'
+import {Button,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions} from '@mui/material'
+
 
 import { useDispatch, useSelector } from 'react-redux'
 import { allUsers,deleteUser, clearErrors } from '../../actions/userActions'
@@ -13,6 +14,8 @@ import { DELETE_USER_RESET } from '../../constants/userConstants'
 
 
 const UsersList = ({ history }) => {
+
+    const [open,setopen]= useState(false)
 
     const dispatch = useDispatch();
 
@@ -82,16 +85,26 @@ const UsersList = ({ history }) => {
                     <Link to={`/admin/user/${user._id}`} className="btn btn-primary py-1 px-2">
                         <i className="fa fa-pencil"></i>
                     </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteUserHandler(user._id)} >
+                    <Button className="btn btn-danger py-1 px-2 ml-2" onClick={() =>setopen(true)} >
                         <i className="fa fa-trash"></i>
-                    </button>
+                    </Button>
+                    <Dialog aria-labelledby="dialog-title" aria-describedby="dialog-discription" open={open} 
+                    onClose={()=>setopen(false)}>
+                        <DialogTitle id="dialog-title">Delete User ?</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="dialog-discription">Are you sure you want to delete this user ? </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={()=>setopen(false)}>Cancel</Button>
+                            <Button onClick={() =>{setopen(false) ; deleteUserHandler(user._id)}} autoFocus>Submit</Button>
+                        </DialogActions>
+                    </Dialog>
                 </Fragment>
             })
         })
 
         return data;
     }
-
 
     return (
         <Fragment>

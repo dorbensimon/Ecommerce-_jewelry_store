@@ -2,10 +2,13 @@ import React, { Fragment, useState, useEffect } from 'react'
 
 import MetaData from '../layout/MetaData'
 import Sidebar from './Sidebar'
+import {Button} from '@mui/material'
+
 
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser, getUserDetails, clearErrors } from '../../actions/userActions'
 import { UPDATE_USER_RESET } from '../../constants/userConstants'
+
 
 const UpdateUser = ({ history, match }) => {
 
@@ -36,7 +39,6 @@ const UpdateUser = ({ history, match }) => {
         }
 
         if (isUpdated) {
-
             history.push('/admin/users')
 
             dispatch({
@@ -116,6 +118,7 @@ const UpdateUser = ({ history, match }) => {
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </Fragment>

@@ -1,7 +1,9 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 import { Watch } from  'react-loader-spinner'
+import {Button,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions} from '@mui/material'
+
 
 import MetaData from '../layout/MetaData'
 import Sidebar from './Sidebar'
@@ -13,6 +15,9 @@ import {DELETE_ORDER_RESET} from '../../constants/orderConstants'
 const OrdersList = ({history}) => {
     
     const dispatch = useDispatch();
+
+    const [open,setopen]= useState(false)
+
 
     const { loading, error, orders } = useSelector(state => state.allOrders);
     const { isDeleted } = useSelector(state => state.order)
@@ -83,9 +88,21 @@ const OrdersList = ({history}) => {
                     <Link to={`/admin/order/${order._id}`} className="btn btn-primary py-1 px-2">
                         <i className="fa fa-eye"></i>
                     </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={()=>{deleteOrderHandler(order._id)}}>
+                    <Button className="btn btn-danger py-1 px-2 ml-2" onClick={() =>setopen(true)}>
                         <i className="fa fa-trash"></i>
-                    </button>
+                    </Button>
+
+                    <Dialog aria-labelledby="dialog-title" aria-describedby="dialog-discription" open={open} 
+                    onClose={()=>setopen(false)}>
+                        <DialogTitle id="dialog-title">Delete Order ?</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="dialog-discription">Are you sure you want to delete the order from the repository ? </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={()=>setopen(false)}>Cancel</Button>
+                            <Button onClick={() =>{setopen(false) ; deleteOrderHandler(order._id)}} autoFocus>Submit</Button>
+                        </DialogActions>
+                    </Dialog>
                 </Fragment>
             })
         })

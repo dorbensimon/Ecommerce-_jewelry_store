@@ -112,12 +112,15 @@ export const newProduct = (productData) => async (dispatch) => {
         })
 
     } catch (error) {
+        console.log(error)
         dispatch({
             type: actionTypes.NEW_PRODUCT_FAIL,
             payload: error.response.data.message
         })
     }
 }
+
+
 // Delete product (Admin)
 export const deleteProduct = (id) => async (dispatch) => {
     try {
@@ -138,6 +141,8 @@ export const deleteProduct = (id) => async (dispatch) => {
         })
     }
 }
+
+
 // Update Product (ADMIN)
 export const updateProduct = (id, productData) => async (dispatch) => {
     try {
@@ -164,6 +169,8 @@ export const updateProduct = (id, productData) => async (dispatch) => {
         })
     }
 }
+
+
 // Get product reviews
 export const getProductReviews = (id) => async (dispatch) => {
     try {
@@ -185,6 +192,9 @@ export const getProductReviews = (id) => async (dispatch) => {
         })
     }
 }
+
+
+
 // Delete product review
 export const deleteReview = (id, productId) => async (dispatch) => {
     try {
@@ -208,6 +218,9 @@ export const deleteReview = (id, productId) => async (dispatch) => {
         })
     }
 }
+
+
+
 //clear Errors
 export const clearErrors = async (dispatch) => {
     dispatch({

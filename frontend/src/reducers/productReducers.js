@@ -103,51 +103,52 @@ export const newReviewReducer = (state = {}, action) => {
 export const productReducer = (state = {}, action) => {
   switch (action.type) {
 
-      case actionTypes.DELETE_PRODUCT_REQUEST:
-      case actionTypes.UPDATE_PRODUCT_REQUEST:
-          return {
-              ...state,
-              loading: true
-          }
-      case actionTypes.DELETE_PRODUCT_SUCCESS:
-          return {
-              ...state,
-              loading: false,
-              isDeleted: action.payload
-          }
-        case actionTypes.UPDATE_PRODUCT_SUCCESS:
-          return {
+    case actionTypes.DELETE_PRODUCT_REQUEST:
+        case actionTypes.UPDATE_PRODUCT_REQUEST:
+            return {
                 ...state,
-              loading: false,
-              isUpdated: action.payload
-          }
+                loading: true
+            }
 
-      case actionTypes.DELETE_PRODUCT_FAIL:
-      case actionTypes.UPDATE_PRODUCT_FAIL:
-          return {
-              ...state,
-              error: action.payload
-          }
+        case actionTypes.DELETE_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
 
-      case actionTypes.DELETE_PRODUCT_RESET:
-          return {
-              ...state,
-              isDeleted: false
-          }
+        case actionTypes.UPDATE_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: action.payload
+            }
+        case actionTypes.DELETE_PRODUCT_FAIL:
+        case actionTypes.UPDATE_PRODUCT_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case actionTypes.DELETE_PRODUCT_RESET:
+            return {
+                ...state,
+                isDeleted: false
+            }
+
         case actionTypes.UPDATE_PRODUCT_RESET:
-          return {
-              ...state,
-              isUpdated: false
-          }
+            return {
+                ...state,
+                isUpdated: false
+            }
 
-      case actionTypes.CLEAR_ERRORS:
-          return {
-              ...state,
-              error: null
-          }
+        case actionTypes.CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
 
-      default:
-          return state
+        default:
+            return state
   }
 }
 export const newProductReducer = (state = { product: {} }, action) => {

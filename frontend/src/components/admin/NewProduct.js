@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import MetaData from '../layout/MetaData';
 import Sidebar from './Sidebar';
 import { Watch } from 'react-loader-spinner';
+import Errormessage from '../../Errormessage';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { newProduct, clearErrors } from '../../actions/productActions';
@@ -17,6 +18,8 @@ const NewProduct = ({ history }) => {
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
+
+
   const categories = ['Rings', 'Necklaces', 'Watches', 'Bracelets'];
 
   const dispatch = useDispatch();
@@ -24,14 +27,17 @@ const NewProduct = ({ history }) => {
   const { loading, error, success } = useSelector((state) => state.newProduct);
 
   useEffect(() => {
+
     if (error) {
-      dispatch(clearErrors());
-    }
+      console.log(error);
+      dispatch(clearErrors())
+  }
 
     if (success) {
       history.push('/admin/products');
       dispatch({ type: NEW_PRODUCT_RESET });
     }
+
   }, [dispatch, error, success, history]);
 
   const submitHandler = (e) => {
@@ -70,6 +76,7 @@ const NewProduct = ({ history }) => {
       reader.readAsDataURL(file);
     });
   };
+
 
   return (
     <Fragment>
@@ -135,6 +142,7 @@ const NewProduct = ({ history }) => {
                         {category}
                       </option>
                     ))}
+
                   </select>
                 </div>
                 <div className="form-group">
@@ -184,6 +192,7 @@ const NewProduct = ({ history }) => {
                       width="100"
                       color="#0078d0"
                       ariaLabel="loading"
+                      timeout={1000}
                     />
                   </div>
                 ):(
@@ -196,9 +205,9 @@ const NewProduct = ({ history }) => {
                     CREATE
                   </button>
                 )
-                
-                
-                
+                }
+                {
+                   error && <Errormessage variant="danger">{error}</Errormessage>
                 }
 
               </form>
